@@ -3,6 +3,19 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://createwithdiwash.com'; // Update with your actual domain
 
+  const servicePages = [
+    'digital-marketing',
+    'email-marketing',
+    'website-development',
+    'mobile-app-development',
+    'data-analytics',
+    'church-crm',
+    'graphic-design',
+    'web-design',
+    'video-editing',
+    'system-automation',
+  ];
+
   return [
     {
       url: baseUrl,
@@ -34,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    ...servicePages.map((service) => ({
+      url: `${baseUrl}/services/${service}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
   ];
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -190,6 +191,23 @@ export default function Home() {
         behavior: 'smooth',
       });
     }
+  };
+
+  // Helper function to convert service title to URL slug
+  const getServiceUrl = (title: string): string => {
+    const slugMap: { [key: string]: string } = {
+      'Digital Marketing': '/services/digital-marketing',
+      'Email Marketing': '/services/email-marketing',
+      'Website Development': '/services/website-development',
+      'Mobile Application Development': '/services/mobile-app-development',
+      'Data Analytics': '/services/data-analytics',
+      'Church CRM Systems': '/services/church-crm',
+      'Graphic Design': '/services/graphic-design',
+      'Web Design': '/services/web-design',
+      'Video Editing & Production': '/services/video-editing',
+      'System Automation': '/services/system-automation',
+    };
+    return slugMap[title] || '#contact';
   };
 
   // Structured data for SEO
@@ -537,13 +555,12 @@ export default function Home() {
                 ))}
               </ul>
               <div className="mt-6">
-                <a
-                  href="#contact"
-                  onClick={scrollToContact}
+                <Link
+                  href={getServiceUrl(service.title)}
                   className="inline-block w-full text-center px-6 py-3 glass border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-700 hover:text-white dark:hover:bg-blue-600 transition-all duration-300"
                 >
-                  Get This Service
-                </a>
+                  View Details & Pricing
+                </Link>
               </div>
             </div>
           ))}
