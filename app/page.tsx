@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 export default function Home() {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     message: '',
     website: '', // Honeypot field
@@ -31,24 +32,24 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://formspree.io/f/xnjndabz', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name.trim(),
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
           email: formData.email.trim(),
           message: formData.message.trim(),
-          timestamp: formStartTime,
         }),
       });
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', message: '', website: '' });
+        setFormData({ firstName: '', lastName: '', email: '', message: '', website: '' });
       } else {
-        const errorData = await response.json();
         setStatus('error');
       }
     } catch (error) {
@@ -668,23 +669,43 @@ export default function Home() {
 
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6 animate-slide-up">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold mb-3 text-gray-900 dark:text-gray-50"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-5 py-4 glass border border-gray-200/50 dark:border-gray-800/50 rounded-xl text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
-                placeholder="Your name"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-semibold mb-3 text-gray-900 dark:text-gray-50"
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-5 py-4 glass border border-gray-200/50 dark:border-gray-800/50 rounded-xl text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
+                  placeholder="First name"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-semibold mb-3 text-gray-900 dark:text-gray-50"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-5 py-4 glass border border-gray-200/50 dark:border-gray-800/50 rounded-xl text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
+                  placeholder="Last name"
+                />
+              </div>
             </div>
 
             <div>
@@ -778,7 +799,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      </div>
+    </div>
     </>
   );
 }
