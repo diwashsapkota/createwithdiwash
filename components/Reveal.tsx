@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
 
 type RevealProps = {
   children: ReactNode;
@@ -13,9 +13,14 @@ type RevealProps = {
 export default function Reveal({ children, className = '', delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.classList.add('is-visible');
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,7 +29,7 @@ export default function Reveal({ children, className = '', delay = 0 }: RevealPr
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0, rootMargin: '0px 0px 80px 0px' }
     );
 
     observer.observe(el);

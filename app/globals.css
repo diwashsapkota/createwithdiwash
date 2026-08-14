@@ -132,6 +132,13 @@ body {
       transition: none;
     }
   }
+
+  @media (scripting: none) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 @keyframes fadeIn {
