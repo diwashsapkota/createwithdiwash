@@ -77,6 +77,7 @@ export default function Navigation() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
+                      aria-current={active ? 'page' : undefined}
                       className={`relative inline-flex min-h-11 items-center text-sm font-medium transition-colors duration-200 ${
                         active
                           ? 'text-amber-500'
@@ -120,16 +121,24 @@ export default function Navigation() {
             </summary>
             <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-stone-200/70 bg-paper dark:border-slate-800/70 dark:bg-navy-950">
               <ul className="space-y-2 px-6 py-8">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="block py-3 font-display text-3xl font-medium text-stone-900 transition-colors hover:text-amber-600 dark:text-white dark:hover:text-amber-400"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {navLinks.map((link) => {
+                  const active = isActivePath(pathname, link.href);
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        aria-current={active ? 'page' : undefined}
+                        className={`block py-3 font-display text-3xl font-medium transition-colors hover:text-amber-600 dark:hover:text-amber-400 ${
+                          active
+                            ? 'text-amber-600 dark:text-amber-400'
+                            : 'text-stone-900 dark:text-white'
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
               <div className="px-6 pb-10">
                 <Link href="/contact" className="btn-primary w-full px-6 py-4 text-base">
