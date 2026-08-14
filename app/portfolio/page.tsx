@@ -1,8 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import Reveal from '@/components/Reveal';
 import { ArrowRightIcon, ArrowUpRightIcon } from '@/components/icons';
 import { projects, images } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'Portfolio',
+  description: 'Recent websites and digital work for churches, ministries, and businesses.',
+};
 
 export default function Portfolio() {
   return (

@@ -1,7 +1,14 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import Reveal from '@/components/Reveal';
 import { serviceIcons, CheckIcon, ArrowRightIcon } from '@/components/icons';
 import { services } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'Services',
+  description:
+    'Digital marketing, websites, mobile apps, Church CRM, automation, and creative services for ministries.',
+};
 
 export default function Services() {
   return (

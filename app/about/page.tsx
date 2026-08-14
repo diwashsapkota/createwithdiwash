@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import Reveal from '@/components/Reveal';
 import { CheckIcon, ArrowRightIcon, SparkIcon, UsersIcon } from '@/components/icons';
 import { images } from '@/lib/site';
@@ -19,6 +20,12 @@ const ourTeam = [
   'Professional video editors for sermons, events, and promotional content',
   'Digital marketing specialists focused on growing your ministry',
 ];
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Create with Diwash builds digital marketing, websites, Church CRM, and automation for churches and ministries.',
+};
 
 export default function About() {
   return (
