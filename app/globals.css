@@ -30,6 +30,12 @@ body {
   @apply antialiased font-sans;
 }
 
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
 ::selection {
   @apply bg-amber-300 text-slate-950;
 }
@@ -73,7 +79,7 @@ body {
 
   /* Icon tile used across cards */
   .icon-tile {
-    @apply flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-400/10 dark:text-amber-400;
+    @apply flex h-10 w-10 items-center text-amber-700 dark:text-amber-400;
   }
 
   /* Form fields */
