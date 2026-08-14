@@ -6,7 +6,8 @@ import { CheckIcon } from '@/components/icons';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     message: '',
     website: '',
@@ -36,7 +37,8 @@ export default function Contact() {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name.trim(),
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
           email: formData.email.trim(),
           message: formData.message.trim(),
         }),
@@ -44,7 +46,7 @@ export default function Contact() {
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', message: '', website: '' });
+        setFormData({ firstName: '', lastName: '', email: '', message: '', website: '' });
       } else {
         setStatus('error');
       }
@@ -92,25 +94,46 @@ export default function Contact() {
           </Reveal>
 
           <Reveal delay={120}>
-            <form onSubmit={handleSubmit} className="card p-8 md:p-10">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  autoComplete="name"
-                  className="field"
-                  placeholder="Your name"
-                />
+            <form onSubmit={handleSubmit} className="card relative p-8 md:p-10">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div>
+                  <label
+                    htmlFor="firstName"
+                    className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100"
+                  >
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    autoComplete="given-name"
+                    className="field"
+                    placeholder="First name"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="lastName"
+                    className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100"
+                  >
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    autoComplete="family-name"
+                    className="field"
+                    placeholder="Last name"
+                  />
+                </div>
               </div>
 
               <div className="mt-6">
