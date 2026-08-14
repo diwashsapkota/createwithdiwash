@@ -39,16 +39,12 @@ export default function About() {
               Create with <em className="italic text-amber-600 dark:text-amber-400">Diwash</em>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Welcome to Create with Diwash, where faith meets technology. We are passionate about
-              empowering churches and faith-based organizations with comprehensive digital
-              solutions that help them reach their communities and fulfill their missions.
+              We build digital tools for churches and ministries: marketing, websites, apps,
+              Church CRM, automation, analytics, and creative production.
             </p>
             <p className="mt-5 leading-relaxed text-stone-600 dark:text-stone-400">
-              Our mission is to help churches and faith-based organizations thrive in the digital
-              age. We understand the unique needs of ministries and provide specialized services
-              including digital marketing, website and mobile app development, Church CRM systems,
-              system automations using n8n, Zapier, and Power Automate, data analytics, and
-              creative services like graphic design and video editing.
+              Ministries have different needs than typical businesses. We design for events,
+              giving, members, and the people you are trying to reach.
             </p>
             <p className="mt-5 leading-relaxed text-stone-600 dark:text-stone-400">
               With a team of experienced and highly skilled professionals — including graphic
