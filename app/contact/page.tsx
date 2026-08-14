@@ -11,7 +11,7 @@ export default function Contact() {
     message: '',
     website: '',
   });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'too_fast'>('idle');
   const [formStartTime] = useState(Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ export default function Contact() {
     }
 
     if ((Date.now() - formStartTime) / 1000 < 3) {
-      setStatus('error');
+      setStatus('too_fast');
       return;
     }
 
@@ -180,6 +180,15 @@ export default function Contact() {
                 >
                   <CheckIcon className="h-5 w-5 flex-shrink-0" />
                   Message sent successfully! We&apos;ll get back to you soon.
+                </div>
+              )}
+
+              {status === 'too_fast' && (
+                <div
+                  role="alert"
+                  className="mt-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200 animate-fade-in"
+                >
+                  Please wait a moment, then send again. This helps us filter automated submissions.
                 </div>
               )}
 
