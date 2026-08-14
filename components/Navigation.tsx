@@ -1,15 +1,32 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { MenuIcon, CloseIcon } from '@/components/icons';
+
+const navLinks = [
+  { href: '/#home', label: 'Home', id: 'home' },
+  { href: '/#about', label: 'About', id: 'about' },
+  { href: '/#services', label: 'Services', id: 'services' },
+  { href: '/#portfolio', label: 'Portfolio', id: 'portfolio' },
+  { href: '/#contact', label: 'Contact', id: 'contact' },
+];
 
 export default function Navigation() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   const [activeSection, setActiveSection] = useState('home');
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'services', 'portfolio', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      setScrolled(window.scrollY > 24);
 
+      if (!isHome) return;
+      const sections = ['home', 'about', 'services', 'portfolio', 'contact'];
+      const scrollPosition = window.scrollY + 120;
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -22,77 +39,139 @@ export default function Navigation() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHome]);
 
-  const navLinks = [
-    { href: '#home', label: 'Home', id: 'home' },
-    { href: '#about', label: 'About', id: 'about' },
-    { href: '#services', label: 'Services', id: 'services' },
-    { href: '#portfolio', label: 'Portfolio', id: 'portfolio' },
-    { href: '#contact', label: 'Contact', id: 'contact' },
-  ];
+  // Close the mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent background scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMenuOpen(false);
+    if (!isHome || !href.startsWith('/#')) return;
     e.preventDefault();
-    const targetId = href.replace('#', '');
+    const targetId = href.replace('/#', '');
     const element = document.getElementById(targetId);
     if (element) {
       const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
 
+  // Over the dark hero the nav is transparent with light text; everywhere else it is solid.
+  const solid = scrolled || !isHome || menuOpen;
+
   return (
-    <header className="w-full sticky top-0 z-50 glass border-b border-gray-200/50 dark:border-gray-800/50 backdrop-blur-xl">
-      <nav className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <a
-            href="#home"
-            onClick={(e) => handleClick(e, '#home')}
-            className="text-xl font-bold gradient-text hover:scale-105 transition-transform duration-200"
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        solid
+          ? 'bg-paper/90 dark:bg-navy-950/90 backdrop-blur-xl border-b border-stone-200/70 dark:border-slate-800/70 shadow-sm'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
+      <nav className="max-w-7xl mx-auto px-6" aria-label="Main navigation">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link
+            href="/#home"
+            onClick={(e) => handleClick(e, '/#home')}
+            className={`font-display text-xl md:text-2xl font-semibold tracking-tight transition-colors ${
+              solid ? 'text-stone-900 dark:text-white' : 'text-white'
+            }`}
           >
-            Create with Diwash
-          </a>
-          <div className="flex items-center gap-6">
-            <ul className="flex items-center gap-8">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleClick(e, link.href)}
-                    className={`text-sm font-medium relative transition-all duration-200 ${
-                      activeSection === link.id
-                        ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                    }`}
-                  >
-                    {link.label}
-                    {activeSection === link.id && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-amber-600 rounded-full" />
-                    )}
-                  </a>
-                </li>
-              ))}
+            Create with Diwash<span className="text-amber-400">.</span>
+          </Link>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex items-center gap-7">
+              {navLinks.map((link) => {
+                const active = isHome && activeSection === link.id;
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={(e) => handleClick(e, link.href)}
+                      className={`relative text-sm font-medium transition-colors duration-200 ${
+                        active
+                          ? 'text-amber-500'
+                          : solid
+                            ? 'text-stone-700 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-400'
+                            : 'text-white/85 hover:text-white'
+                      }`}
+                    >
+                      {link.label}
+                      {active && (
+                        <span className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-amber-400 rounded-full" />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
-            <a
-              href="#contact"
-              onClick={(e) => handleClick(e, '#contact')}
-              className="px-6 py-2 btn-primary rounded-lg font-semibold text-sm shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-105 transition-all duration-300"
+            <Link
+              href="/#contact"
+              onClick={(e) => handleClick(e, '/#contact')}
+              className="btn-primary px-5 py-2.5 text-sm"
             >
-              Get Started
-            </a>
+              Start a Project
+            </Link>
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            className={`md:hidden flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
+              solid ? 'text-stone-900 dark:text-white' : 'text-white'
+            }`}
+          >
+            {menuOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-paper dark:bg-navy-950 border-t border-stone-200/70 dark:border-slate-800/70 overflow-y-auto">
+          <ul className="px-6 py-8 space-y-2">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={(e) => handleClick(e, link.href)}
+                  className="block font-display text-3xl font-medium py-3 text-stone-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="px-6 pb-10">
+            <Link
+              href="/#contact"
+              onClick={(e) => handleClick(e, '/#contact')}
+              className="btn-primary w-full px-6 py-4 text-base"
+            >
+              Start a Project
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
-

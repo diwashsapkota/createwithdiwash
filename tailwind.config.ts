@@ -11,13 +11,22 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        paper: "#FAF8F4",
+        navy: {
+          800: "#1E2A52",
+          900: "#141E3C",
+          950: "#0C1226",
+        },
       },
       fontFamily: {
-        sans: ['Instrument Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-fraunces)", "Georgia", "serif"],
+      },
+      maxWidth: {
+        "8xl": "88rem",
       },
     },
   },
   plugins: [],
 };
 export default config;
-

@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://createwithdiwash.com'), // Update with your actual domain
@@ -112,7 +127,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -122,9 +137,16 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className="bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800/50 text-gray-900 dark:text-gray-50 min-h-screen">
+      <body className="bg-paper dark:bg-navy-950 text-stone-900 dark:text-stone-100 min-h-dvh">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-amber-400 focus:px-5 focus:py-2.5 focus:font-semibold focus:text-slate-950"
+        >
+          Skip to main content
+        </a>
         <Navigation />
-        <main className="relative">{children}</main>
+        <main id="main" className="relative">{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Reveal from '@/components/Reveal';
+import { CheckIcon } from '@/components/icons';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -42,116 +44,127 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen">
-      <section className="max-w-4xl mx-auto px-6 py-20 md:py-32">
-        <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="gradient-text">Get in Touch</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Have a project in mind? Let's discuss how we can help bring your ideas to life.
-          </p>
-        </div>
-
-        <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6 animate-slide-up">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-semibold mb-3 text-gray-900 dark:text-gray-50"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-5 py-4 glass border border-gray-200/50 dark:border-gray-800/50 rounded-xl text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
-                placeholder="Your name"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-semibold mb-3 text-gray-900 dark:text-gray-50"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-5 py-4 glass border border-gray-200/50 dark:border-gray-800/50 rounded-xl text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
-                placeholder="your.email@example.com"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-semibold mb-3 text-gray-900 dark:text-gray-50"
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={6}
-                className="w-full px-5 py-4 glass border border-gray-200/50 dark:border-gray-800/50 rounded-xl text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 resize-none transition-all"
-                placeholder="Tell us about your project..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="w-full px-10 py-4 btn-primary rounded-xl font-semibold text-lg shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            >
-              {status === 'loading' ? 'Sending...' : 'Send Message'}
-            </button>
-
-            {status === 'success' && (
-              <div className="p-5 glass border border-green-200 dark:border-green-800 rounded-xl text-green-700 dark:text-green-300 animate-fade-in">
-                <div className="flex items-center">
-                  <span className="text-2xl mr-3">✓</span>
-                  <span>Message sent successfully! We'll get back to you soon.</span>
-                </div>
-              </div>
-            )}
-
-            {status === 'error' && (
-              <div className="p-5 glass border border-red-200 dark:border-red-800 rounded-xl text-red-700 dark:text-red-300 animate-fade-in">
-                <div className="flex items-center">
-                  <span className="text-2xl mr-3">✕</span>
-                  <span>Something went wrong. Please try again later.</span>
-                </div>
-              </div>
-            )}
-          </form>
-        </div>
-
-        <div className="mt-16 text-center animate-slide-up">
-          <div className="p-10 glass rounded-3xl border border-gray-200/50 dark:border-gray-800/50">
-            <h3 className="text-2xl font-bold mb-4 gradient-text">
-              Other Ways to Reach Us
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Email us directly or connect with us on social media
+    <div className="pt-24 md:pt-28">
+      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+          <Reveal>
+            <p className="kicker">Get in touch</p>
+            <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
+              Have a project in <em className="italic text-amber-600 dark:text-amber-400">mind</em>?
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+              Let&apos;s discuss how we can help bring your ideas to life. Tell us about your
+              ministry and what you&apos;d like to build — we&apos;ll get back to you with ideas,
+              timelines, and a plan.
             </p>
-          </div>
+
+            <ul className="mt-10 space-y-5">
+              {[
+                'We reply within 1–2 business days',
+                'Free initial consultation — no commitment',
+                'A clear proposal with scope, timeline, and pricing',
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-stone-700 dark:text-stone-300">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-400/10 dark:text-amber-400">
+                    <CheckIcon className="h-4 w-4" />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <form onSubmit={handleSubmit} className="card p-8 md:p-10">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  autoComplete="name"
+                  className="field"
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div className="mt-6">
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  autoComplete="email"
+                  className="field"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+
+              <div className="mt-6">
+                <label
+                  htmlFor="message"
+                  className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={6}
+                  className="field resize-none"
+                  placeholder="Tell us about your project..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="btn-dark mt-8 w-full px-8 py-4 text-base disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
+              </button>
+
+              {status === 'success' && (
+                <div
+                  role="status"
+                  className="mt-6 flex items-center gap-3 rounded-xl border border-green-300 bg-green-50 p-4 text-sm text-green-800 dark:border-green-800 dark:bg-green-950/40 dark:text-green-300 animate-fade-in"
+                >
+                  <CheckIcon className="h-5 w-5 flex-shrink-0" />
+                  Message sent successfully! We&apos;ll get back to you soon.
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div
+                  role="alert"
+                  className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-300 animate-fade-in"
+                >
+                  Something went wrong. Please try again later.
+                </div>
+              )}
+            </form>
+          </Reveal>
         </div>
       </section>
     </div>
   );
 }
-
