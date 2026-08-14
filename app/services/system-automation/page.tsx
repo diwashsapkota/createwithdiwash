@@ -48,7 +48,7 @@ const plans: PricingPlan[] = [
     name: 'Standard Automation',
     price: '$750',
     period: 'one-time',
-    description: 'Ideal for churches needing comprehensive automation',
+    description: 'When giving, email, calendar, and the CRM should talk to each other',
     features: [
       'Up to 15 automation workflows',
       'Advanced integrations',

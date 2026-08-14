@@ -41,7 +41,7 @@ export const services: Service[] = [
     title: 'Digital Marketing',
     shortTitle: 'Digital Marketing',
     description:
-      'Strategies designed to help churches and faith-based organizations reach their community, increase engagement, and grow their mission.',
+      'Social, search, and campaigns that get Sunday and midweek in front of people who have never sat in the room.',
     features: ['Social Media Marketing', 'Content Strategy', 'SEO Optimization', 'Campaign Management'],
   },
   {
@@ -49,7 +49,7 @@ export const services: Service[] = [
     title: 'Email Marketing',
     shortTitle: 'Email Marketing',
     description:
-      'Campaigns that keep your congregation informed, engaged, and connected with regular updates, newsletters, and event announcements.',
+      'Weekly notes, event reminders, and giving follow-ups that land in the inbox instead of getting lost in a Facebook post.',
     features: ['Newsletter Design', 'Automated Campaigns', 'Segmentation', 'Analytics & Reporting'],
   },
   {
@@ -57,7 +57,7 @@ export const services: Service[] = [
     title: 'Website Development',
     shortTitle: 'Websites',
     description:
-      'Custom websites built with modern technologies, designed for ministries to showcase their mission and connect with their community.',
+      'A church site that holds sermons, events, giving, and a way to say you are new, without five plugins fighting each other.',
     features: ['Responsive Design', 'Event Management', 'Donation Integration', 'Member Portals'],
   },
   {
@@ -65,7 +65,7 @@ export const services: Service[] = [
     title: 'Mobile App Development',
     shortTitle: 'Mobile Apps',
     description:
-      'Native and cross-platform apps that keep members connected — share content, manage events, and engage your community on the go.',
+      'A phone app for sermons, events, and push notes when service time or a prayer request actually matters.',
     features: ['iOS & Android Apps', 'Push Notifications', 'Offline Capabilities', 'App Store Optimization'],
   },
   {
@@ -73,7 +73,7 @@ export const services: Service[] = [
     title: 'Data Analytics',
     shortTitle: 'Analytics',
     description:
-      'Analytics and reporting that help you understand your congregation, track engagement, and make data-driven decisions for your ministry.',
+      'Attendance, giving, and site traffic in one view so you can see what grew and what stalled.',
     features: ['Performance Dashboards', 'Engagement Metrics', 'Growth Tracking', 'Custom Reports'],
   },
   {
@@ -81,7 +81,7 @@ export const services: Service[] = [
     title: 'Church CRM Systems',
     shortTitle: 'Church CRM',
     description:
-      'CRM systems tailored for churches — manage members, track attendance, handle donations, and streamline day-to-day operations.',
+      'Members, attendance, donations, and pastoral follow-up in one system instead of a spreadsheet and three inboxes.',
     features: ['Member Management', 'Attendance Tracking', 'Donation Management', 'Event Scheduling'],
   },
   {
@@ -89,7 +89,7 @@ export const services: Service[] = [
     title: 'Graphic Design',
     shortTitle: 'Graphic Design',
     description:
-      'Professional design for ministries — logos, banners, social media graphics, print materials, and complete brand identities.',
+      'Sunday slides, social posts, print, and a mark that still looks like your church at phone size.',
     features: ['Logo Design', 'Brand Identity', 'Print Design', 'Social Media Graphics'],
   },
   {
@@ -97,7 +97,7 @@ export const services: Service[] = [
     title: 'Web Design',
     shortTitle: 'Web Design',
     description:
-      "Beautiful, user-friendly designs that reflect your church's values and create engaging experiences that connect visitors with your community.",
+      'Layouts for first-time visitors: where to park, when you meet, and how to ask for prayer without hunting.',
     features: ['UI/UX Design', 'Wireframing', 'Prototyping', 'Design Systems'],
   },
   {
@@ -105,7 +105,7 @@ export const services: Service[] = [
     title: 'Video Editing & Production',
     shortTitle: 'Video',
     description:
-      'Editing and production for sermons, events, promotional content, and social media — helping you share your message effectively.',
+      'Sermon cuts, event recaps, and short clips ready for YouTube and the lobby screen.',
     features: ['Sermon Editing', 'Event Highlights', 'Social Media Videos', 'Motion Graphics'],
   },
   {
@@ -113,8 +113,23 @@ export const services: Service[] = [
     title: 'System Automation',
     shortTitle: 'Automation',
     description:
-      'Streamline operations with n8n, Zapier, Power Automate, and other platforms — connect your tools and eliminate manual tasks.',
+      'Connect giving, email, and the CRM so a new visitor is not typed in by hand three times.',
     features: ['Workflow Automation', 'API Integrations', 'Data Synchronization', 'Process Optimization'],
+  },
+];
+
+export const serviceGroups: { title: string; slugs: Service['slug'][] }[] = [
+  {
+    title: 'Reach people who are not in the room yet',
+    slugs: ['digital-marketing', 'email-marketing', 'video-editing'],
+  },
+  {
+    title: 'Give the church a place to live online',
+    slugs: ['website-development', 'web-design', 'mobile-app-development', 'graphic-design'],
+  },
+  {
+    title: 'Run members, giving, and follow-up in one system',
+    slugs: ['church-crm', 'data-analytics', 'system-automation'],
   },
 ];
 
@@ -130,7 +145,7 @@ export const projects: Project[] = [
   {
     title: 'Joshua Project',
     description:
-      'A mission-focused initiative providing comprehensive data on unreached people groups worldwide, with interactive maps, statistics, and prayer guides.',
+      'Maps, stats, and prayer guides for unreached people groups, used by mission teams worldwide.',
     tech: ['Data Visualization', 'Interactive Maps', 'Mission Resources'],
     url: 'https://joshuaproject.net',
     image: { src: unsplash('1524661135-423995f22d0b', 900), alt: 'Vintage world map representing global missions' },
@@ -145,8 +160,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Spirit of Life Ministries',
-    description:
-      'A ministry equipping and empowering individuals through the Word of God, with Sunday services, sermons, events, a bookstore, and blog resources.',
+    description: 'Sunday services, sermons, events, a bookstore, and a blog.',
     tech: ['Ministry Platform', 'Content Management', 'Event Calendar'],
     url: 'https://spiritoflifeministries.co',
     image: { src: unsplash('1473177104440-ffee2f376098', 900), alt: 'Light-filled cathedral nave' },

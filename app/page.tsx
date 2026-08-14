@@ -1,72 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import Reveal from '@/components/Reveal';
-import {
-  serviceIcons,
-  MegaphoneIcon,
-  GlobeIcon,
-  WorkflowIcon,
-  UsersIcon,
-  HeartIcon,
-  SparkIcon,
-  TargetIcon,
-  CheckIcon,
-  ArrowRightIcon,
-  ArrowUpRightIcon,
-} from '@/components/icons';
+import ServiceList from '@/components/ServiceList';
+import { ArrowRightIcon, ArrowUpRightIcon } from '@/components/icons';
 import { services, projects, images } from '@/lib/site';
 
-const pillars = [
-  {
-    icon: MegaphoneIcon,
-    title: 'Marketing & Analytics',
-    description:
-      'Strategic digital campaigns, email marketing, and data analytics to help you connect with your congregation and measure your impact.',
-  },
-  {
-    icon: GlobeIcon,
-    title: 'Websites & Mobile Apps',
-    description:
-      'Custom websites and mobile applications built to serve your community, share your message, and engage members effectively.',
-  },
-  {
-    icon: WorkflowIcon,
-    title: 'Church CRM & Automation',
-    description:
-      'Specialized CRM systems and workflow automations using n8n, Zapier, and Power Automate — plus creative services for your ministry.',
-  },
-];
-
-const whyUs = [
-  {
-    icon: UsersIcon,
-    title: 'Experienced Team',
-    description: 'Highly skilled designers, developers, and video editors dedicated to your success.',
-  },
-  {
-    icon: HeartIcon,
-    title: 'Faith-Focused',
-    description: "Specialized understanding of churches and faith-based organizations' unique needs.",
-  },
-  {
-    icon: SparkIcon,
-    title: 'Comprehensive Solutions',
-    description: 'From marketing to development to creative services — everything you need in one place.',
-  },
-  {
-    icon: TargetIcon,
-    title: 'Data-Driven Results',
-    description: "Advanced analytics to track engagement, growth, and measure your ministry's impact.",
-  },
-];
-
 const stats = [
-  { value: '8+', label: 'Projects delivered' },
-  { value: '10', label: 'Service areas' },
-  { value: '100%', label: 'Ministry-focused' },
+  { value: '8', label: 'Sites in production' },
+  { value: '4', label: 'Countries' },
 ];
 
 export default function Home() {
@@ -75,23 +18,20 @@ export default function Home() {
     lastName: '',
     email: '',
     message: '',
-    website: '', // Honeypot field
+    website: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'too_fast'>('idle');
-  const [formStartTime] = useState(Date.now()); // Track when form was loaded
+  const [formStartTime] = useState(Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
 
-    // Check honeypot field
     if (formData.website) {
-      // Bot detected - silently fail
       setStatus('error');
       return;
     }
 
-    // Calculate time spent on form (minimum 3 seconds to prevent bots)
     const timeSpent = (Date.now() - formStartTime) / 1000;
     if (timeSpent < 3) {
       setStatus('too_fast');
@@ -103,7 +43,7 @@ export default function Home() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           firstName: formData.firstName.trim(),
@@ -119,7 +59,7 @@ export default function Home() {
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };
@@ -142,7 +82,6 @@ export default function Home() {
     }
   };
 
-  // Structured data for SEO
   const servicesStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -181,7 +120,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioStructuredData) }}
       />
 
-      {/* Hero */}
       <section id="home" className="relative flex min-h-dvh items-center overflow-hidden bg-navy-950">
         <Image
           src={images.hero.src}
@@ -195,15 +133,14 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-32 pb-16">
           <div className="max-w-3xl animate-fade-in">
-            <p className="kicker !text-amber-400">Digital solutions for churches &amp; ministries</p>
+            <p className="kicker !text-amber-400">Websites, CRM, and media for churches</p>
             <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-white md:text-7xl">
               Where faith meets{' '}
               <em className="italic text-amber-400">technology</em>
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-stone-200 md:text-xl">
-              From digital marketing to custom CRM systems, automation, and creative services — we
-              help churches and faith-based organizations reach their community and grow their
-              mission.
+              We build the site, the member system, and the weekly media so a church can run Sunday
+              without juggling five vendors.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <a href="#contact" onClick={(e) => scrollTo(e, 'contact')} className="btn-primary px-8 py-4 text-base">
@@ -215,12 +152,12 @@ export default function Home() {
                 onClick={(e) => scrollTo(e, 'services')}
                 className="btn-outline-light px-8 py-4 text-base"
               >
-                Explore Services
+                See the work we take on
               </a>
             </div>
           </div>
 
-          <dl className="mt-20 grid max-w-2xl grid-cols-3 gap-6 border-t border-white/15 pt-8 animate-slide-up">
+          <dl className="mt-20 grid max-w-md grid-cols-2 gap-6 border-t border-white/15 pt-8 animate-slide-up">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="order-2 text-sm text-stone-300">{stat.label}</dt>
@@ -231,88 +168,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pillars */}
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <div className="grid gap-6 md:grid-cols-3 lg:gap-8">
-          {pillars.map((pillar, index) => (
-            <Reveal key={pillar.title} delay={index * 100}>
-              <div className="card card-hover h-full p-8">
-                <div className="icon-tile">
-                  <pillar.icon className="h-6 w-6" />
-                </div>
-                <h2 className="mt-6 font-display text-2xl font-semibold text-stone-900 dark:text-white">
-                  {pillar.title}
-                </h2>
-                <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">{pillar.description}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <ol className="grid gap-12 md:grid-cols-3 md:gap-16">
+            <li>
+              <p className="font-display text-sm text-amber-700 dark:text-amber-400">01</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-stone-900 dark:text-white">
+                Marketing that names the service time
+              </h2>
+              <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">
+                Ads, email, and clips that point to a real Sunday, not a vague brand campaign.
+              </p>
+            </li>
+            <li>
+              <p className="font-display text-sm text-amber-700 dark:text-amber-400">02</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-stone-900 dark:text-white">
+                Sites and apps a visitor can actually use
+              </h2>
+              <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">
+                Parking, kids check-in, giving, and last week&apos;s sermon without a scavenger hunt.
+              </p>
+            </li>
+            <li>
+              <p className="font-display text-sm text-amber-700 dark:text-amber-400">03</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-stone-900 dark:text-white">
+                CRM so follow-up is not a spreadsheet
+              </h2>
+              <p className="mt-3 leading-relaxed text-stone-600 dark:text-stone-400">
+                Members, donations, and a new guest typed in once, then handed to the right pastor.
+              </p>
+            </li>
+          </ol>
+        </Reveal>
       </section>
 
-      {/* About / Why us */}
       <section id="about" className="bg-white dark:bg-slate-900/40">
         <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
           <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
             <Reveal>
-              <div className="relative">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-                  <Image
-                    src={images.teamLaughing.src}
-                    alt={images.teamLaughing.alt}
-                    fill
-                    sizes="(min-width: 1024px) 44vw, 92vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-8 -right-4 hidden w-52 overflow-hidden rounded-2xl border-4 border-white shadow-xl dark:border-slate-900 sm:block md:w-64">
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={images.community.src}
-                      alt={images.community.alt}
-                      fill
-                      sizes="256px"
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="absolute -top-5 -left-5 -z-10 h-40 w-40 rounded-3xl bg-amber-200/60 dark:bg-amber-400/10" />
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={images.cathedral.src}
+                  alt={images.cathedral.alt}
+                  fill
+                  sizes="(min-width: 1024px) 44vw, 92vw"
+                  className="object-cover"
+                />
               </div>
             </Reveal>
 
             <Reveal delay={120}>
-              <p className="kicker">About Create with Diwash</p>
-              <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
-                Helping ministries thrive in the <em className="italic text-amber-600 dark:text-amber-400">digital age</em>
+              <h2 className="font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
+                Built for churches, not generic small business
               </h2>
               <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-                We are passionate about empowering churches and faith-based organizations with
-                digital solutions that help them reach their communities and fulfill their missions
-                — combining modern design with cutting-edge technology.
+                A ministry is not a storefront. You have a calendar of services, people who give,
+                members who need a call, and a sermon that should still be findable on Tuesday.
               </p>
-
-              <ul className="mt-10 space-y-6">
-                {whyUs.map((item) => (
-                  <li key={item.title} className="flex gap-4">
-                    <div className="icon-tile h-11 w-11 flex-shrink-0">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-stone-900 dark:text-white">{item.title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-                        {item.description}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
+              <p className="mt-5 leading-relaxed text-stone-600 dark:text-stone-400">
+                Diwash and a small team of designers, developers, and editors have shipped sites and
+                systems for churches in the US, Nepal, Australia, and Canada.
+              </p>
               <a
                 href="#contact"
                 onClick={(e) => scrollTo(e, 'contact')}
                 className="btn-dark mt-10 px-7 py-3.5 text-sm"
               >
-                Let&apos;s Work Together
+                Tell us about Sunday
                 <ArrowRightIcon className="h-4 w-4" />
               </a>
             </Reveal>
@@ -320,178 +242,97 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services */}
       <section id="services" className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="kicker justify-center">What we do</p>
-          <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
-            Everything your ministry needs to <em className="italic text-amber-600 dark:text-amber-400">grow</em>
+        <Reveal>
+          <h2 className="max-w-3xl font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
+            Ten services, grouped the way a church actually buys them
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-            Comprehensive digital solutions designed specifically for churches and faith-based
-            organizations — from marketing to development and creative services.
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+            Pick a line, or ask us to stitch two of them together. Most churches need a site plus
+            a way to keep members and giving in one place.
           </p>
         </Reveal>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {services.map((service, index) => {
-            const Icon = serviceIcons[service.slug];
-            return (
-              <Reveal key={service.slug} delay={(index % 3) * 80}>
-                <div className="card card-hover group flex h-full flex-col p-8">
-                  <div className="icon-tile">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="mt-6 font-display text-xl font-semibold text-stone-900 dark:text-white">
-                    {service.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
-                    {service.description}
-                  </p>
-                  <ul className="mt-5 space-y-2.5">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2.5 text-sm text-stone-700 dark:text-stone-300">
-                        <CheckIcon className="h-4 w-4 flex-shrink-0 text-amber-600 dark:text-amber-400" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-auto pt-6">
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-stone-900 underline-offset-4 transition-colors hover:text-amber-600 hover:underline dark:text-white dark:hover:text-amber-400"
-                    >
-                      View details &amp; pricing
-                      <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+        <ServiceList />
       </section>
 
-      {/* Portfolio */}
       <section id="portfolio" className="bg-white dark:bg-slate-900/40">
         <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="kicker justify-center">Our work</p>
-            <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
-              Recent <em className="italic text-amber-600 dark:text-amber-400">projects</em>
+          <Reveal>
+            <h2 className="font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
+              Recent work
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Explore some of our recent work for churches, faith-based organizations, and
-              businesses.
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-400">
+              Churches, a missions data project, and a few local businesses. Each link opens the
+              live site.
             </p>
           </Reveal>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {projects.map((project, index) => (
-              <Reveal key={project.title} delay={(index % 3) * 80}>
+          <ul className="mt-14 divide-y divide-stone-200 border-y border-stone-200 dark:divide-slate-800 dark:border-slate-800">
+            {projects.map((project) => (
+              <li key={project.title}>
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="card card-hover group flex h-full flex-col overflow-hidden"
+                  className="group grid gap-6 py-8 sm:grid-cols-[180px_1fr_auto] sm:items-center"
                 >
-                  <div className="relative aspect-[3/2] overflow-hidden">
+                  <div className="relative aspect-[3/2] overflow-hidden sm:aspect-[4/3]">
                     <Image
                       src={project.image.src}
                       alt={project.image.alt}
                       fill
-                      sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 92vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="180px"
+                      className="object-cover"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="font-display text-xl font-semibold text-stone-900 dark:text-white">
-                        {project.title}
-                      </h3>
-                      <ArrowUpRightIcon className="h-5 w-5 flex-shrink-0 text-stone-400 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-amber-500" />
-                    </div>
-                    <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+                  <div>
+                    <h3 className="font-display text-xl font-semibold text-stone-900 group-hover:text-amber-700 dark:text-white dark:group-hover:text-amber-400">
+                      {project.title}
+                    </h3>
+                    <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone-600 dark:text-stone-400">
                       {project.description}
                     </p>
-                    <div className="mt-auto flex flex-wrap gap-2 pt-5">
-                      {project.tech.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600 dark:bg-slate-800 dark:text-stone-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   </div>
+                  <ArrowUpRightIcon className="hidden h-5 w-5 text-stone-400 sm:block" />
                 </a>
-              </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* CTA band */}
-      <section className="relative overflow-hidden bg-navy-950">
-        <Image
-          src={images.cathedral.src}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-25"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-950/90 via-navy-950/70 to-navy-950/90" />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
+      <section className="bg-navy-950">
+        <div className="mx-auto max-w-3xl px-6 py-20 md:py-24">
           <Reveal>
-            <h2 className="font-display text-4xl font-semibold tracking-tight text-white md:text-5xl">
-              Ready to transform your <em className="italic text-amber-400">ministry</em>?
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
+              If giving, sermons, and new guests live in three tools, we should talk.
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-300">
-              Let&apos;s discuss how our digital solutions can help you reach your community and grow
-              your mission — the first consultation is free.
-            </p>
-            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <a href="#contact" onClick={(e) => scrollTo(e, 'contact')} className="btn-primary px-8 py-4 text-base">
-                Get a Free Consultation
-                <ArrowRightIcon className="h-5 w-5" />
-              </a>
-            </div>
+            <a
+              href="#contact"
+              onClick={(e) => scrollTo(e, 'contact')}
+              className="btn-primary mt-8 px-8 py-4 text-base"
+            >
+              Email the studio
+              <ArrowRightIcon className="h-5 w-5" />
+            </a>
           </Reveal>
         </div>
       </section>
 
-      {/* Contact */}
       <section id="contact" className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal>
-            <p className="kicker">Get in touch</p>
-            <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
-              Have a project in <em className="italic text-amber-600 dark:text-amber-400">mind</em>?
+            <h2 className="font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
+              Write with a service time and what is broken
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Tell us about your ministry and what you&apos;d like to build. We&apos;ll get back to
-              you with ideas, timelines, and a plan to bring it to life.
+              We reply in one or two business days with whether we can help, a rough timeline, and
+              what it would cost.
             </p>
-
-            <ul className="mt-10 space-y-5">
-              {[
-                'We reply within 1–2 business days',
-                'Free initial consultation — no commitment',
-                'A clear proposal with scope, timeline, and pricing',
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-stone-700 dark:text-stone-300">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-400/10 dark:text-amber-400">
-                    <CheckIcon className="h-4 w-4" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
           </Reveal>
 
           <Reveal delay={120}>
-            <form onSubmit={handleSubmit} className="card p-8 md:p-10">
+            <form onSubmit={handleSubmit} className="relative border border-stone-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-900 md:p-10">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label htmlFor="firstName" className="mb-2 block text-sm font-semibold text-stone-900 dark:text-stone-100">
@@ -556,11 +397,10 @@ export default function Home() {
                   required
                   rows={5}
                   className="field resize-none"
-                  placeholder="Tell us about your project..."
+                  placeholder="Church name, city, and what you need built."
                 />
               </div>
 
-              {/* Honeypot field - hidden from users but visible to bots */}
               <div className="absolute left-[-9999px] opacity-0 pointer-events-none" aria-hidden="true">
                 <label htmlFor="website">Website</label>
                 <input
@@ -585,17 +425,16 @@ export default function Home() {
               {status === 'success' && (
                 <div
                   role="status"
-                  className="mt-6 flex items-center gap-3 rounded-xl border border-green-300 bg-green-50 p-4 text-sm text-green-800 dark:border-green-800 dark:bg-green-950/40 dark:text-green-300 animate-fade-in"
+                  className="mt-6 border border-green-300 bg-green-50 p-4 text-sm text-green-800 dark:border-green-800 dark:bg-green-950/40 dark:text-green-300"
                 >
-                  <CheckIcon className="h-5 w-5 flex-shrink-0" />
-                  Message sent successfully! We&apos;ll get back to you soon.
+                  Message sent. We will write back soon.
                 </div>
               )}
 
               {status === 'too_fast' && (
                 <div
                   role="alert"
-                  className="mt-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200 animate-fade-in"
+                  className="mt-6 border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200"
                 >
                   Please wait a moment, then send again. This helps us filter automated submissions.
                 </div>
@@ -604,7 +443,7 @@ export default function Home() {
               {status === 'error' && (
                 <div
                   role="alert"
-                  className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-300 animate-fade-in"
+                  className="mt-6 border border-red-300 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-300"
                 >
                   Something went wrong. Please try again later.
                 </div>

@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className="mx-auto max-w-2xl text-center">
         <p className="kicker">Page not found</p>
         <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
-          This page doesn&apos;t <em className="italic text-amber-600 dark:text-amber-400">exist</em>
+          This page does not exist
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
           The link may be old, or the address was typed wrong. Head home, browse services, or tell

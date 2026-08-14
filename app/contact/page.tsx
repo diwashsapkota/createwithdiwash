@@ -67,30 +67,13 @@ export default function Contact() {
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal>
-            <p className="kicker">Get in touch</p>
             <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-5xl">
-              Have a project in <em className="italic text-amber-600 dark:text-amber-400">mind</em>?
+              Church name, city, and what is broken
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Let&apos;s discuss how we can help bring your ideas to life. Tell us about your
-              ministry and what you&apos;d like to build — we&apos;ll get back to you with ideas,
-              timelines, and a plan.
+              We reply in one or two business days with whether we can help, a rough timeline, and
+              what it would cost. First conversation is free.
             </p>
-
-            <ul className="mt-10 space-y-5">
-              {[
-                'We reply within 1–2 business days',
-                'Free initial consultation — no commitment',
-                'A clear proposal with scope, timeline, and pricing',
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-stone-700 dark:text-stone-300">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-400/10 dark:text-amber-400">
-                    <CheckIcon className="h-4 w-4" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
           </Reveal>
 
           <Reveal delay={120}>

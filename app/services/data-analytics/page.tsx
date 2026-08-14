@@ -49,7 +49,7 @@ const plans: PricingPlan[] = [
     name: 'Advanced Analytics',
     price: '$300',
     period: '/month',
-    description: 'Ideal for churches wanting comprehensive insights',
+    description: 'When attendance, giving, and the site should show up in one view',
     features: [
       'Advanced performance dashboard',
       'Weekly engagement reports',

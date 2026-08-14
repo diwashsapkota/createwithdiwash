@@ -49,7 +49,7 @@ const plans: PricingPlan[] = [
     name: 'Standard Design',
     price: '$1,500',
     period: 'one-time',
-    description: 'Ideal for churches wanting comprehensive design solutions',
+    description: 'When the site, print, and Sunday slides should look like one church',
     features: [
       'Up to 10 page designs',
       'Fully responsive mockups',

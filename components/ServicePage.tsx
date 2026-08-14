@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { serviceIcons, type ServiceSlug, CheckIcon, ArrowRightIcon, ChevronLeftIcon } from '@/components/icons';
+import { type ServiceSlug, CheckIcon, ArrowRightIcon, ChevronLeftIcon } from '@/components/icons';
 import { serviceImages } from '@/lib/site';
 
 export type Offering = {
@@ -35,9 +35,8 @@ export default function ServicePage({
   intro,
   offerings,
   plans,
-  pricingNote = "Choose the plan that best fits your church's needs",
+  pricingNote = 'Prices are a starting point. Most churches mix two services.',
 }: ServicePageProps) {
-  const Icon = serviceIcons[slug];
   const image = serviceImages[slug];
 
   return (
@@ -61,16 +60,16 @@ export default function ServicePage({
             <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">{intro}</p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link href="/contact" className="btn-primary px-7 py-3.5 text-sm">
-                Get a Free Consultation
+                Talk about this work
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
               <a href="#pricing" className="btn-outline px-7 py-3.5 text-sm">
-                View Pricing
+                See prices
               </a>
             </div>
           </div>
           <div className="relative">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+            <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -80,48 +79,35 @@ export default function ServicePage({
                 className="object-cover"
               />
             </div>
-            <div className="absolute -bottom-5 -left-5 -z-10 h-40 w-40 rounded-3xl bg-amber-200/60 dark:bg-amber-400/10" />
-            <div className="icon-tile absolute -top-5 -right-4 h-16 w-16 rounded-2xl border-4 border-paper bg-amber-400 !text-slate-950 shadow-lg dark:border-navy-950">
-              <Icon className="h-7 w-7" />
-            </div>
           </div>
         </div>
       </section>
 
       {/* Offerings */}
       <section className="mx-auto max-w-7xl px-6 py-20 md:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="kicker justify-center">What we offer</p>
-          <h2 className="mt-5 font-display text-3xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-4xl">
-            Included in every engagement
-          </h2>
-        </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+        <h2 className="font-display text-3xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-4xl">
+          What this engagement includes
+        </h2>
+        <ul className="mt-10 divide-y divide-stone-200 border-y border-stone-200 dark:divide-slate-800 dark:border-slate-800">
           {offerings.map((offering) => (
-            <div key={offering.title} className="card card-hover p-7">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-400/10 dark:text-amber-400">
-                  <CheckIcon className="h-4 w-4" />
-                </span>
-                <h3 className="font-display text-lg font-semibold text-stone-900 dark:text-white">
-                  {offering.title}
-                </h3>
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
+            <li key={offering.title} className="grid gap-2 py-6 sm:grid-cols-[220px_1fr] sm:gap-10">
+              <h3 className="font-display text-lg font-semibold text-stone-900 dark:text-white">
+                {offering.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-stone-600 dark:text-stone-400">
                 {offering.description}
               </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* Pricing */}
       <section id="pricing" className="bg-white dark:bg-slate-900/40">
         <div className="mx-auto max-w-7xl px-6 py-20 md:py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="kicker justify-center">Pricing</p>
-            <h2 className="mt-5 font-display text-3xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-4xl">
-              Simple, transparent plans
+          <div className="mx-auto max-w-2xl">
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-4xl">
+              Pricing
             </h2>
             <p className="mt-4 text-stone-600 dark:text-stone-400">{pricingNote}</p>
           </div>
@@ -137,8 +123,8 @@ export default function ServicePage({
                 }`}
               >
                 {plan.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-slate-950">
-                    Most Popular
+                  <span className="absolute -top-3.5 left-8 rounded-full bg-amber-400 px-4 py-1.5 text-xs font-semibold text-slate-950">
+                    Usual starting point
                   </span>
                 )}
                 <h3
@@ -194,16 +180,15 @@ export default function ServicePage({
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-4xl px-6 py-20 text-center md:py-24">
+      <section className="mx-auto max-w-4xl px-6 py-20 md:py-24">
         <h2 className="font-display text-3xl font-semibold tracking-tight text-stone-900 dark:text-white md:text-4xl">
-          Not sure which plan is right for <em className="italic text-amber-600 dark:text-amber-400">you</em>?
+          Not sure which line item you need?
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-stone-600 dark:text-stone-400">
-          Tell us about your ministry and we&apos;ll recommend the best fit — the first consultation
-          is always free.
+        <p className="mt-5 max-w-xl text-lg text-stone-600 dark:text-stone-400">
+          Send the church name, city, and what is currently a mess. First conversation is free.
         </p>
         <Link href="/contact" className="btn-dark mt-9 px-8 py-4 text-base">
-          Talk to Us
+          Write the studio
           <ArrowRightIcon className="h-5 w-5" />
         </Link>
       </section>

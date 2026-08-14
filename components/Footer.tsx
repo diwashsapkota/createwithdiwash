@@ -13,8 +13,7 @@ export default function Footer() {
               Create with Diwash<span className="text-amber-400">.</span>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-stone-400">
-              Where faith meets technology. Digital marketing, websites, mobile apps, Church CRM,
-              automation, and creative services for churches and faith-based organizations.
+              Websites, Church CRM, marketing, and Sunday media for churches and ministries.
             </p>
             <Link href="/contact" className="btn-primary mt-7 px-6 py-3 text-sm">
               Start a Project
@@ -88,7 +87,6 @@ export default function Footer() {
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500">
           <p>© {year} Create with Diwash. All rights reserved.</p>
-          <p className="font-display italic text-stone-400">Empowering ministries in the digital age.</p>
         </div>
       </div>
     </footer>

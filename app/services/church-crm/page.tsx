@@ -49,7 +49,7 @@ const plans: PricingPlan[] = [
     name: 'Professional CRM',
     price: '$200',
     period: '/month',
-    description: 'Ideal for growing churches needing comprehensive management',
+    description: 'When members, attendance, and donations need one record',
     features: [
       'Up to 2,000 members',
       'Advanced member management',
