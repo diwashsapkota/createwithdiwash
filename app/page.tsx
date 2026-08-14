@@ -359,7 +359,7 @@ export default function Home() {
                   <div className="mt-auto pt-6">
                     <Link
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-stone-900 underline-offset-4 transition-colors hover:text-amber-600 hover:underline dark:text-white dark:hover:text-amber-400"
+                      className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-stone-900 underline-offset-4 transition-colors hover:text-amber-600 hover:underline dark:text-white dark:hover:text-amber-400"
                     >
                       View details &amp; pricing
                       <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -75,7 +75,7 @@ export default function Navigation() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`relative text-sm font-medium transition-colors duration-200 ${
+                      className={`relative inline-flex min-h-11 items-center text-sm font-medium transition-colors duration-200 ${
                         active
                           ? 'text-amber-500'
                           : solid
@@ -94,7 +94,7 @@ export default function Navigation() {
             </ul>
             <Link
               href="/contact"
-              className="btn-primary px-5 py-2.5 text-sm"
+              className="btn-primary min-h-11 px-5 py-2.5 text-sm"
             >
               Start a Project
             </Link>

@@ -25,12 +25,12 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-500 mb-5">
               Services
             </h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="text-sm">
               {services.slice(0, 6).map((service) => (
                 <li key={service.slug}>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="hover:text-amber-400 transition-colors"
+                    className="inline-flex min-h-11 items-center hover:text-amber-400 transition-colors"
                   >
                     {service.title}
                   </Link>
@@ -43,12 +43,12 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-500 mb-5">
               Creative
             </h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="text-sm">
               {services.slice(6).map((service) => (
                 <li key={service.slug}>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="hover:text-amber-400 transition-colors"
+                    className="inline-flex min-h-11 items-center hover:text-amber-400 transition-colors"
                   >
                     {service.title}
                   </Link>
@@ -61,24 +61,24 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-stone-500 mb-5">
               Explore
             </h3>
-            <ul className="space-y-3 text-sm">
+            <ul className="text-sm">
               <li>
-                <Link href="/about" className="hover:text-amber-400 transition-colors">
+                <Link href="/about" className="inline-flex min-h-11 items-center hover:text-amber-400 transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-amber-400 transition-colors">
+                <Link href="/services" className="inline-flex min-h-11 items-center hover:text-amber-400 transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" className="hover:text-amber-400 transition-colors">
+                <Link href="/portfolio" className="inline-flex min-h-11 items-center hover:text-amber-400 transition-colors">
                   Portfolio
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-amber-400 transition-colors">
+                <Link href="/contact" className="inline-flex min-h-11 items-center hover:text-amber-400 transition-colors">
                   Contact
                 </Link>
               </li>
