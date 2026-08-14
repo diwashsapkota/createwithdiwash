@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MenuIcon, CloseIcon } from '@/components/icons';
@@ -23,6 +23,7 @@ export default function Navigation() {
   const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
@@ -34,6 +35,7 @@ export default function Navigation() {
   // Close the mobile menu on route change
   useEffect(() => {
     setMenuOpen(false);
+    if (menuRef.current) menuRef.current.open = false;
   }, [pathname]);
 
   // Prevent background scroll while the mobile menu is open
@@ -100,46 +102,44 @@ export default function Navigation() {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className={`md:hidden flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
-              solid ? 'text-stone-900 dark:text-white' : 'text-white'
-            }`}
+          {/* Native details so the menu opens even if a React click handler is dropped */}
+          <details
+            ref={menuRef}
+            className="md:hidden"
+            onToggle={(event) => {
+              setMenuOpen((event.currentTarget as HTMLDetailsElement).open);
+            }}
           >
-            {menuOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </button>
+            <summary
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              className={`flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full transition-colors [&::-webkit-details-marker]:hidden ${
+                solid ? 'text-stone-900 dark:text-white' : 'text-white'
+              }`}
+            >
+              {menuOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+            </summary>
+            <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-stone-200/70 bg-paper dark:border-slate-800/70 dark:bg-navy-950">
+              <ul className="space-y-2 px-6 py-8">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="block py-3 font-display text-3xl font-medium text-stone-900 transition-colors hover:text-amber-600 dark:text-white dark:hover:text-amber-400"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="px-6 pb-10">
+                <Link href="/contact" className="btn-primary w-full px-6 py-4 text-base">
+                  Start a Project
+                </Link>
+              </div>
+            </div>
+          </details>
         </div>
       </nav>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-paper dark:bg-navy-950 border-t border-stone-200/70 dark:border-slate-800/70 overflow-y-auto">
-          <ul className="px-6 py-8 space-y-2">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="block font-display text-3xl font-medium py-3 text-stone-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="px-6 pb-10">
-            <Link
-              href="/contact"
-              className="btn-primary w-full px-6 py-4 text-base"
-            >
-              Start a Project
-            </Link>
-          </div>
-        </div>
-      )}
     </header>
   );
 }
