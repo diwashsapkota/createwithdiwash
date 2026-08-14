@@ -6,43 +6,30 @@ import { usePathname } from 'next/navigation';
 import { MenuIcon, CloseIcon } from '@/components/icons';
 
 const navLinks = [
-  { href: '/#home', label: 'Home', id: 'home' },
-  { href: '/#about', label: 'About', id: 'about' },
-  { href: '/#services', label: 'Services', id: 'services' },
-  { href: '/#portfolio', label: 'Portfolio', id: 'portfolio' },
-  { href: '/#contact', label: 'Contact', id: 'contact' },
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/contact', label: 'Contact' },
 ];
+
+function isActivePath(pathname: string, href: string) {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export default function Navigation() {
   const pathname = usePathname();
   const isHome = pathname === '/';
-  const [activeSection, setActiveSection] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 24);
-
-      if (!isHome) return;
-      const sections = ['home', 'about', 'services', 'portfolio', 'contact'];
-      const scrollPosition = window.scrollY + 120;
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 24);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHome]);
+  }, []);
 
   // Close the mobile menu on route change
   useEffect(() => {
@@ -56,20 +43,6 @@ export default function Navigation() {
       document.body.style.overflow = '';
     };
   }, [menuOpen]);
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setMenuOpen(false);
-    if (!isHome || !href.startsWith('/#')) return;
-    e.preventDefault();
-    const targetId = href.replace('/#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
-  };
 
   // Over the dark hero the nav is transparent with light text; everywhere else it is solid.
   const solid = scrolled || !isHome || menuOpen;
@@ -85,8 +58,7 @@ export default function Navigation() {
       <nav className="max-w-7xl mx-auto px-6" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link
-            href="/#home"
-            onClick={(e) => handleClick(e, '/#home')}
+            href="/"
             className={`font-display text-xl md:text-2xl font-semibold tracking-tight transition-colors ${
               solid ? 'text-stone-900 dark:text-white' : 'text-white'
             }`}
@@ -98,12 +70,11 @@ export default function Navigation() {
           <div className="hidden md:flex items-center gap-8">
             <ul className="flex items-center gap-7">
               {navLinks.map((link) => {
-                const active = isHome && activeSection === link.id;
+                const active = isActivePath(pathname, link.href);
                 return (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      onClick={(e) => handleClick(e, link.href)}
                       className={`relative text-sm font-medium transition-colors duration-200 ${
                         active
                           ? 'text-amber-500'
@@ -122,8 +93,7 @@ export default function Navigation() {
               })}
             </ul>
             <Link
-              href="/#contact"
-              onClick={(e) => handleClick(e, '/#contact')}
+              href="/contact"
               className="btn-primary px-5 py-2.5 text-sm"
             >
               Start a Project
@@ -153,7 +123,6 @@ export default function Navigation() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
                   className="block font-display text-3xl font-medium py-3 text-stone-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
                 >
                   {link.label}
@@ -163,8 +132,7 @@ export default function Navigation() {
           </ul>
           <div className="px-6 pb-10">
             <Link
-              href="/#contact"
-              onClick={(e) => handleClick(e, '/#contact')}
+              href="/contact"
               className="btn-primary w-full px-6 py-4 text-base"
             >
               Start a Project

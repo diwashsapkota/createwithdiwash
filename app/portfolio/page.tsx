@@ -84,7 +84,7 @@ export default function Portfolio() {
               is free.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/#contact" className="btn-primary px-8 py-4 text-base">
+              <Link href="/contact" className="btn-primary px-8 py-4 text-base">
                 Start Your Project
                 <ArrowRightIcon className="h-5 w-5" />
               </Link>

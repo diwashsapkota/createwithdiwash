@@ -61,7 +61,7 @@ export default function Services() {
         </div>
 
         <div className="mt-16 text-center">
-          <Link href="/#contact" className="btn-dark px-7 py-3.5 text-sm">
+          <Link href="/contact" className="btn-dark px-7 py-3.5 text-sm">
             Get a Quote
             <ArrowRightIcon className="h-4 w-4" />
           </Link>

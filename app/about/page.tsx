@@ -138,7 +138,7 @@ export default function About() {
             Tell us about your ministry and what you&apos;d like to create — the first consultation
             is free.
           </p>
-          <Link href="/#contact" className="btn-dark mt-9 px-7 py-3.5 text-sm">
+          <Link href="/contact" className="btn-dark mt-9 px-7 py-3.5 text-sm">
             Get in Touch
             <ArrowRightIcon className="h-4 w-4" />
           </Link>

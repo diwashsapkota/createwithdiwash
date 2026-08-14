@@ -9,14 +9,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Link href="/#home" className="font-display text-2xl font-semibold text-white">
+            <Link href="/" className="font-display text-2xl font-semibold text-white">
               Create with Diwash<span className="text-amber-400">.</span>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-stone-400">
               Where faith meets technology. Digital marketing, websites, mobile apps, Church CRM,
               automation, and creative services for churches and faith-based organizations.
             </p>
-            <Link href="/#contact" className="btn-primary mt-7 px-6 py-3 text-sm">
+            <Link href="/contact" className="btn-primary mt-7 px-6 py-3 text-sm">
               Start a Project
             </Link>
           </div>
@@ -63,22 +63,22 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/#about" className="hover:text-amber-400 transition-colors">
+                <Link href="/about" className="hover:text-amber-400 transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/#services" className="hover:text-amber-400 transition-colors">
+                <Link href="/services" className="hover:text-amber-400 transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link href="/#portfolio" className="hover:text-amber-400 transition-colors">
+                <Link href="/portfolio" className="hover:text-amber-400 transition-colors">
                   Portfolio
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="hover:text-amber-400 transition-colors">
+                <Link href="/contact" className="hover:text-amber-400 transition-colors">
                   Contact
                 </Link>
               </li>

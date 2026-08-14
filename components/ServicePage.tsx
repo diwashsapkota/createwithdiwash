@@ -45,7 +45,7 @@ export default function ServicePage({
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6">
         <Link
-          href="/#services"
+          href="/services"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 transition-colors hover:text-amber-600 dark:text-stone-400 dark:hover:text-amber-400"
         >
           <ChevronLeftIcon className="h-4 w-4" />
@@ -60,7 +60,7 @@ export default function ServicePage({
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-stone-600 dark:text-stone-400">{intro}</p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Link href="/#contact" className="btn-primary px-7 py-3.5 text-sm">
+              <Link href="/contact" className="btn-primary px-7 py-3.5 text-sm">
                 Get a Free Consultation
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
@@ -181,7 +181,7 @@ export default function ServicePage({
                 </ul>
                 <div className="mt-auto pt-8">
                   <Link
-                    href="/#contact"
+                    href="/contact"
                     className={`${plan.popular ? 'btn-primary' : 'btn-outline'} w-full px-6 py-3.5 text-sm`}
                   >
                     Get Started
@@ -202,7 +202,7 @@ export default function ServicePage({
           Tell us about your ministry and we&apos;ll recommend the best fit — the first consultation
           is always free.
         </p>
-        <Link href="/#contact" className="btn-dark mt-9 px-8 py-4 text-base">
+        <Link href="/contact" className="btn-dark mt-9 px-8 py-4 text-base">
           Talk to Us
           <ArrowRightIcon className="h-5 w-5" />
         </Link>
