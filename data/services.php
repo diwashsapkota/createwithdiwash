@@ -174,6 +174,13 @@ $projects = [
         'url' => 'https://ealizabrows.com',
         'image' => ['src' => '/assets/images/ealiza-brows-storefront.webp', 'alt' => 'Ealiza Brows Beauty Salon storefront in a shopping mall'],
     ],
+    [
+        'title' => 'HN Music Lesson',
+        'description' => 'Online guitar lessons from a Pittsburgh-based instructor, with video courses, a course bundle offer, and payment checkout.',
+        'tech' => ['Online Courses', 'Video Lessons', 'E-commerce'],
+        'url' => 'https://hnmusiclesson.com',
+        'image' => ['src' => unsplash('1471478331149-c72f17e33c73', 900), 'alt' => 'Close-up of hands playing an acoustic guitar'],
+    ],
 ];
 
 $serviceImages = [
