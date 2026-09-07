@@ -171,8 +171,8 @@ $projects = [
         'title' => 'Ealiza Brows',
         'description' => 'A beauty service provider specializing in eyebrow shaping and treatments, with services, pricing, booking, and a work portfolio.',
         'tech' => ['Booking System', 'Service Gallery', 'E-commerce'],
-        'url' => 'https://ealizabrows.ca',
-        'image' => ['src' => unsplash('1487412947147-5cebf100ffc2', 900), 'alt' => 'Beauty professional applying eye makeup'],
+        'url' => 'https://ealizabrows.com',
+        'image' => ['src' => '/assets/images/ealiza-brows-storefront.webp', 'alt' => 'Ealiza Brows Beauty Salon storefront in a shopping mall'],
     ],
 ];
 
