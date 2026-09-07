@@ -1,0 +1,12 @@
+{
+  "name": "Create with Diwash - Digital Solutions for Churches",
+  "short_name": "Create with Diwash",
+  "description": "Comprehensive digital solutions for churches and faith-based organizations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F4",
+  "theme_color": "#141E3C",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

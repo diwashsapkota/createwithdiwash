@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /data/
+Disallow: /contact-handler.php
+
+Sitemap: https://createwithdiwash.com/sitemap.xml
