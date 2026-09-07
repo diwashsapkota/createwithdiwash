@@ -198,6 +198,14 @@ export const projects: Project[] = [
     image: { src: unsplash('1505751172876-fa1923c5c528', 900), alt: 'Stethoscope on a table' },
   },
   {
+    title: 'Life Line Enterprises',
+    description:
+      'A nutraceutical and pharmaceutical marketing company in Kathmandu, supplying pharmacies across Nepal with a certified, clearly labelled product range.',
+    tech: ['Product Catalog', 'Corporate Website', 'Pharmaceutical Marketing'],
+    url: 'https://lifelineenterprisesnepal.com',
+    image: { src: unsplash('1584308666744-24d5c474f2ae', 900), alt: 'Blister packs of pharmaceutical tablets and capsules' },
+  },
+  {
     title: 'Ealiza Brows',
     description:
       'A beauty service provider specializing in eyebrow shaping and treatments, with services, pricing, booking, and a work portfolio.',
