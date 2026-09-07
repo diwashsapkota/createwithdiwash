@@ -94,7 +94,7 @@ require __DIR__ . '/header.php';
             <?php endforeach; ?>
           </ul>
           <div class="mt-auto pt-8">
-            <a href="/contact/" class="<?= $popular ? 'btn-primary' : 'btn-outline' ?> w-full px-6 py-3.5 text-sm">Get Started</a>
+            <a href="/contact/" class="<?= $popular ? 'btn-primary' : 'btn-outline' ?> w-full px-6 py-3.5 text-sm">Ask About <?= htmlspecialchars($plan['name'], ENT_QUOTES) ?></a>
           </div>
         </div>
         <?php endforeach; ?>
